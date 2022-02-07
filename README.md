@@ -28,6 +28,11 @@ If the snake touches it, the score decreases.
 I create AnotherSnake class which inherits Snake class.  
 It moves rondomely, and the score decreases if the snake touches it.
 
+## Result
+The Snake and Food are default settings.
+I added Obstacle (red) and AnotherSnake (pink).
+<img src="result/result.png"/>
+
 ## Rubric Points
 ### 1. Compiling and Testing (All Rubric Points REQUIRED)  
 * The submission must compile and run.  
