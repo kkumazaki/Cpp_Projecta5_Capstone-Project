@@ -22,11 +22,11 @@ The file name contains user name, set speed, and year/date/time.
 
 ### Step 4. Set obstacle (game.h, render.cpp, render.h)
 I set an obstacle with red color.  
-If the snake touch it, the score decreases.
+If the snake touches it, the score decreases.
 
 ### Step 5. Create another Snake (game.cpp, game.h, render.cpp, render.h, snake.cpp, snake.h)
 I create AnotherSnake class which inherits Snake class.  
-It moves rondomely, and the score decreases if the snake touch it.
+It moves rondomely, and the score decreases if the snake touches it.
 
 ## Rubric Points
 ### 1. Compiling and Testing (All Rubric Points REQUIRED)  

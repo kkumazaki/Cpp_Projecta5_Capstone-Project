@@ -61,6 +61,13 @@ void Game::PlaceFood() {
   while (true) {
     x = random_w(engine);
     y = random_h(engine);
+
+    // If the location is same as obstacle, re-locate.
+    if (x == obstacle.x && y == obstacle.y){
+      x = random_w(engine);
+      y = random_h(engine);
+    }
+
     // Check that the location is not occupied by a snake item before placing
     // food.
     if (!snake.SnakeCell(x, y)) {
@@ -106,8 +113,10 @@ void Game::Update() {
   if (food.x == new_x && food.y == new_y) {
     score++;
     PlaceFood();
+    PlaceObstacle();
     // Grow snake and increase speed.
     snake.GrowBody();
+    another_snake.GrowBody();
     snake.speed += 0.02;
   }
 
@@ -115,6 +124,7 @@ void Game::Update() {
   // Check if there's obstacle over here
   if (obstacle.x == new_x && obstacle.y == new_y) {
     score--;//decrease the score for penalty
+    PlaceFood();
     PlaceObstacle();
     //increase speed.
     snake.speed += 0.02;
@@ -123,6 +133,8 @@ void Game::Update() {
   //Step 5. Create another Snake
   if (another_snake.head_x == new_x && another_snake.head_y == new_y) {
     score--;//decrease the score for penalty
+    PlaceFood();
+    PlaceObstacle();
     //increase speed.
     snake.speed += 0.02;
   } 

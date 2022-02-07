@@ -43,8 +43,9 @@ class Snake {
   int grid_height;
 };
 
-// Step 5. Create another Snake (Inheritance)
+// Step 5. Create another Snake
 class AnotherSnake: public Snake {
+//class AnotherSnake {// No inherit
  public:
   AnotherSnake(int grid_w, int grid_h, float speedS)
       //: grid_width(grid_width),
@@ -52,13 +53,15 @@ class AnotherSnake: public Snake {
       //  head_x(grid_width / 4),
       //  head_y(grid_height / 4),
       //  speed(speedSelect){} // Error occured
-      :Snake(grid_w, grid_h, speedS)
+      :Snake(grid_w, grid_h, speedS) // No inherit
       {
         grid_width = grid_w;
         grid_height = grid_h;
         head_x = grid_width / 4;
         head_y = grid_height / 4;
-        speed = 0.02f;
+        speed = 0.1f;
+        count = 0;
+        direction = 1;
       }
 
 
@@ -70,6 +73,9 @@ class AnotherSnake: public Snake {
   std::vector<SDL_Point> body;
 
   void AnotherUpdate();
+  bool AnotherSnakeCell(int x, int y);
+
+  int count, direction;//Parameter of randome movement
 
  private:
   void AnotherUpdateHead();

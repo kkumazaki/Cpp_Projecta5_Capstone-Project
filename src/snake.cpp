@@ -78,8 +78,9 @@ bool Snake::SnakeCell(int x, int y) {
   return false;
 }
 
-// Step 5. Create another Snake (Inheritance)
+// Step 5. Create another Snake
 void AnotherSnake::AnotherUpdate() {
+  //std::cout << "AnotherUpdate()" << std::endl;
   SDL_Point prev_cell{
       static_cast<int>(head_x),
       static_cast<int>(
@@ -123,7 +124,17 @@ void AnotherSnake::AnotherUpdateHead() {
   std::mt19937 eng(rd());
   std::uniform_int_distribution<int> distr(1, 4);
 
-  switch (distr(eng)) {
+  //std::cout << "another dist " << distr(eng) << std::endl;
+
+  if (count > 20){
+    direction = distr(eng);
+    count = 0;
+  }
+  else{
+    count++;
+  }
+
+  switch (direction) {
     case 1:
       head_y -= speed;
       break;
@@ -141,7 +152,21 @@ void AnotherSnake::AnotherUpdateHead() {
       break;
   }
 
+
   // Wrap the Snake around to the beginning if going off of the screen.
   head_x = fmod(head_x + grid_width, grid_width);
   head_y = fmod(head_y + grid_height, grid_height);
+}
+
+// Inefficient method to check if cell is occupied by snake.
+bool AnotherSnake::AnotherSnakeCell(int x, int y) {
+  if (x == static_cast<int>(head_x) && y == static_cast<int>(head_y)) {
+    return true;
+  }
+  for (auto const &item : body) {
+    if (x == item.x && y == item.y) {
+      return true;
+    }
+  }
+  return false;
 }
