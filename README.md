@@ -1,12 +1,68 @@
 # CPPND: Capstone Snake Game Example
 
-This is a starter repo for the Capstone project in the [Udacity C++ Nanodegree Program](https://www.udacity.com/course/c-plus-plus-nanodegree--nd213). The code for this repo was inspired by [this](https://codereview.stackexchange.com/questions/212296/snake-game-in-c-with-sdl) excellent StackOverflow post and set of responses.
+This is my repository for the Capstone project in the [Udacity C++ Nanodegree Program](https://www.udacity.com/course/c-plus-plus-nanodegree--nd213). The code for this repo was inspired by [this](https://codereview.stackexchange.com/questions/212296/snake-game-in-c-with-sdl) excellent StackOverflow post and set of responses.
 
 <img src="snake_game.gif"/>
 
-The Capstone Project gives you a chance to integrate what you've learned throughout this program. This project will become an important part of your portfolio to share with current and future colleagues and employers.
+In the Capstone Project, I extend the Snake game, following the principles I have learned throughout this Nanodegree Program. This project demonstrated that I can independently create applications using a wide range of C++ features.
 
-In this project, you can build your own C++ application or extend this Snake game, following the principles you have learned throughout this Nanodegree Program. This project will demonstrate that you can independently create applications using a wide range of C++ features.
+## Modification Points
+I modified the Snake Game as following:
+### Step 1. Input name (main.cpp)
+I let user to input his/her name, and show it in console.  
+Also, I add his/her name on the log file name.
+
+### Step 2. Set speed (main.cpp, game.cpp, game.h, snake.h)
+I let user to input the desired speed of the snake.  
+I add arguments to the constructors of Game and Snake to modify the speed.
+
+### Step 3. Create file (main.cpp)
+I create and save a file when the program finishes.  
+The file name contains user name, set speed, and year/date/time.
+
+### Step 4. Set obstacle (game.h, render.cpp, render.h)
+I set an obstacle with red color.  
+If the snake touch it, the score decreases.
+
+### Step 5. Create another Snake (game.cpp, game.h, render.cpp, render.h, snake.cpp, snake.h)
+I create AnotherSnake class which inherits Snake class.  
+It moves rondomely, and the score decreases if the snake touch it.
+
+## Rubric Points
+### 1. Compiling and Testing (All Rubric Points REQUIRED)  
+* The submission must compile and run.  
+--> It compile and run without errors.
+
+### 2. Loops, Functions, I/O  
+* The project demonstrates an understanding of C++ functions and control structures.  
+--> The project code is clearly organized into functions. (all files)
+
+* The project reads data from a file and process the data, or the program writes data to a file.  
+--> I added the codes to save log files when the program finishes. (main.cpp)
+
+* The project accepts user input and processes the input.  
+--> I added the codes to input user name and snake speed. (main.cpp, game.cpp, game.h, snake.h)
+
+### 3. Object Oriented Programming
+* The project uses Object Oriented Programming techniques.  
+--> The project code is organized into classes with class attributes to hold the data, and class methods to perform tasks. (all files)
+
+* Classes use appropriate access specifiers for class members.  
+--> All class data members are explicitly specified as public or private. (all files)
+
+* Class constructors utilize member initialization lists.  
+--> All class members that are set to argument values are initialized through member initialization lists. (all files)
+
+* Classes abstract implementation details from their interfaces.  
+--> All class member functions document their effects, either through function names, comments, or formal documentation. Member functions do not change program state in undocumented ways. (all files)
+
+* Classes encapsulate behavior.  
+--> Appropriate data and functions are grouped into classes. Member data that is subject to an invariant is hidden from the user. State is accessed via member functions. (all files)
+
+* Classes follow an appropriate inheritance hierarchy.  
+--> I added the new class AnotherSnake that inherits Snake class. (snake.cpp, snake.h)
+
+
 
 ## Dependencies for Running Locally
 * cmake >= 3.7

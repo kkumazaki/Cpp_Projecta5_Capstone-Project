@@ -74,7 +74,7 @@ int main() {
   std::cout << "Score: " << game.GetScore() << "\n";
   std::cout << "Size: " << game.GetSize() << "\n";
 
-  //Step 1. Input name and create file
+  //Step 3. Create file
   writingFile << "Score: " << game.GetScore() << std::endl;
   writingFile.close();
 
