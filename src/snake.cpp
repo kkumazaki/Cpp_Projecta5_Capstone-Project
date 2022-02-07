@@ -77,3 +77,71 @@ bool Snake::SnakeCell(int x, int y) {
   }
   return false;
 }
+
+// Step 5. Create another Snake (Inheritance)
+void AnotherSnake::AnotherUpdate() {
+  SDL_Point prev_cell{
+      static_cast<int>(head_x),
+      static_cast<int>(
+          head_y)};  // We first capture the head's cell before updating.
+  AnotherUpdateHead();
+  SDL_Point current_cell{
+      static_cast<int>(head_x),
+      static_cast<int>(head_y)};  // Capture the head's cell after updating.
+
+  // Update all of the body vector items if the snake head has moved to a new
+  // cell.
+  if (current_cell.x != prev_cell.x || current_cell.y != prev_cell.y) {
+    AnotherUpdateBody(current_cell, prev_cell);
+  }
+}
+
+
+void AnotherSnake::AnotherUpdateBody(SDL_Point &current_head_cell, SDL_Point &prev_head_cell) {
+  // Add previous head location to vector
+  body.push_back(prev_head_cell);
+
+  if (!growing) {
+    // Remove the tail from the vector.
+    body.erase(body.begin());
+  } else {
+    growing = false;
+    size++;
+  }
+
+  // Check if the snake has died.
+  for (auto const &item : body) {
+    if (current_head_cell.x == item.x && current_head_cell.y == item.y) {
+      alive = false;
+    }
+  }
+}
+
+void AnotherSnake::AnotherUpdateHead() {
+
+  std::random_device rd;
+  std::mt19937 eng(rd());
+  std::uniform_int_distribution<int> distr(1, 4);
+
+  switch (distr(eng)) {
+    case 1:
+      head_y -= speed;
+      break;
+
+    case 2:
+      head_y += speed;
+      break;
+
+    case 3:
+      head_x -= speed;
+      break;
+
+    case 4:
+      head_x += speed;
+      break;
+  }
+
+  // Wrap the Snake around to the beginning if going off of the screen.
+  head_x = fmod(head_x + grid_width, grid_width);
+  head_y = fmod(head_y + grid_height, grid_height);
+}

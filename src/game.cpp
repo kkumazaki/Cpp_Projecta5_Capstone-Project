@@ -2,12 +2,16 @@
 #include <iostream>
 #include "SDL.h"
 
-Game::Game(std::size_t grid_width, std::size_t grid_height)
-    : snake(grid_width, grid_height),
+//Game::Game(std::size_t grid_width, std::size_t grid_height)
+//    : snake(grid_width, grid_height),
+Game::Game(std::size_t grid_width, std::size_t grid_height, float speedSelect)//Step 2. Set speed
+    : snake(grid_width, grid_height, speedSelect),//Step 2. Set speed
+      another_snake(grid_width, grid_height, speedSelect),//Step 5. Create another Snake
       engine(dev()),
       random_w(0, static_cast<int>(grid_width - 1)),
       random_h(0, static_cast<int>(grid_height - 1)) {
   PlaceFood();
+  PlaceObstacle();//Step4. Set obstacle
 }
 
 void Game::Run(Controller const &controller, Renderer &renderer,
@@ -25,7 +29,9 @@ void Game::Run(Controller const &controller, Renderer &renderer,
     // Input, Update, Render - the main game loop.
     controller.HandleInput(running, snake);
     Update();
-    renderer.Render(snake, food);
+    //renderer.Render(snake, food);
+    //renderer.Render(snake, food, obstacle); //Step4. Set obstacle
+    renderer.Render(snake, food, obstacle, another_snake); //Step 5. Create another Snake
 
     frame_end = SDL_GetTicks();
 
@@ -65,10 +71,33 @@ void Game::PlaceFood() {
   }
 }
 
+void Game::PlaceObstacle() {
+  int x, y;
+  while (true) {
+    x = random_w(engine);
+    y = random_h(engine);
+
+    // If the location is same as food, re-locate.
+    if (x == food.x && y == food.y){
+      x = random_w(engine);
+      y = random_h(engine);
+    }
+
+    // Check that the location is not occupied by a snake item before placing
+    // obstacle.
+    if (!snake.SnakeCell(x, y)) {
+      obstacle.x = x;
+      obstacle.y = y;
+      return;
+    }
+  }
+}
+
 void Game::Update() {
   if (!snake.alive) return;
 
   snake.Update();
+  another_snake.AnotherUpdate();//Step 5. Create another Snake
 
   int new_x = static_cast<int>(snake.head_x);
   int new_y = static_cast<int>(snake.head_y);
@@ -81,6 +110,23 @@ void Game::Update() {
     snake.GrowBody();
     snake.speed += 0.02;
   }
+
+  //Step4. Set obstacle
+  // Check if there's obstacle over here
+  if (obstacle.x == new_x && obstacle.y == new_y) {
+    score--;//decrease the score for penalty
+    PlaceObstacle();
+    //increase speed.
+    snake.speed += 0.02;
+  }
+
+  //Step 5. Create another Snake
+  if (another_snake.head_x == new_x && another_snake.head_y == new_y) {
+    score--;//decrease the score for penalty
+    //increase speed.
+    snake.speed += 0.02;
+  } 
+
 }
 
 int Game::GetScore() const { return score; }

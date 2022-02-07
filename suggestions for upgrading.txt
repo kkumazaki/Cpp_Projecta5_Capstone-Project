@@ -1,0 +1,6 @@
+Some suggestions for upgrading the game:
+
+[done]You can allow users to enter their names and save it in a text file with their scores, so you can get the top score.
+[done]You can allow the user to select the initial speed (Slow - Fast).
+[done]You can add some obstacles in the game.
+You can add **another snake** to the game and allow the computer to control it using **A* search algorithm**.

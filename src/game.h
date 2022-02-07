@@ -9,7 +9,8 @@
 
 class Game {
  public:
-  Game(std::size_t grid_width, std::size_t grid_height);
+  //Game(std::size_t grid_width, std::size_t grid_height);
+  Game(std::size_t grid_width, std::size_t grid_height, float speedSelect); //Step 2. Set speed
   void Run(Controller const &controller, Renderer &renderer,
            std::size_t target_frame_duration);
   int GetScore() const;
@@ -18,6 +19,8 @@ class Game {
  private:
   Snake snake;
   SDL_Point food;
+  SDL_Point obstacle;//Step 4. Set obstacle
+  AnotherSnake another_snake;// Step 5. Create another Snake
 
   std::random_device dev;
   std::mt19937 engine;
@@ -28,6 +31,8 @@ class Game {
 
   void PlaceFood();
   void Update();
+  void PlaceObstacle(); //Step4. Set obstacle
+ 
 };
 
 #endif
